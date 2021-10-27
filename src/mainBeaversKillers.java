@@ -10,6 +10,7 @@ public class mainBeaversKillers {
             switch (choice) {
                 case "J" -> boardSetting.createBoard();
                 case "H" -> HighScore.toto();
+                case "t" -> TimerModule.Timer(2000);
             }
             choice = get_user_choice();
         }
@@ -17,24 +18,25 @@ public class mainBeaversKillers {
 
     }
 
-    static String get_user_choice() {
+    static String get_user_choice(String menu, char A, char B, char C) {
         /*
         Displays possibles choices and make sure that it is a valid choice.
          */
         Scanner scanner = new Scanner(System.in);
         String choice;
-        do {
-            System.out.println("""
+        String menuListe ="""
                     You can choose between these options :
                     ***** Exercise 1 --> type J
                     ***** Exercise 2 --> type H
-                    ***** Quit app   --> type Q""");
-            System.out.println("Choose which exercise you want to do :");
+                    ***** Quit app   --> type Q""";
+        do {
+            System.out.println(menuListe);
+            System.out.println("Type your choice :");
             choice = scanner.nextLine();
-            if (!(choice.equals("J") || choice.equals("H") || choice.equals("Q")))
+            if (!(choice.equals(A) || choice.equals(B) || choice.equals(C)  || choice.equals("t")))
                 System.out.println("Please enter a valid choice.\n");
         }
-        while (!(choice.equals("J") || choice.equals("H") || choice.equals("Q")));
+        while (!(choice.equals(A) || choice.equals(B) || choice.equals(C) || choice.equals("t")));
         return choice;
     }
 }
