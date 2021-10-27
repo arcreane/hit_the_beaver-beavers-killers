@@ -10,10 +10,10 @@ public class mainBeaversKillers {
             switch (choice) {
                 case "J" -> System.out.println("Exercise J");
                 case "H" -> HighScore.toto();
-                case "Q" -> System.out.println("Bye bye! See ya!!");
             }
             choice = get_user_choice();
         }
+        System.out.println("Bye bye! See ya!!");
 
     }
 
