@@ -8,7 +8,7 @@ public class mainBeaversKillers {
         String choice = get_user_choice();
         while (!choice.equals("Q")) {
             switch (choice) {
-                case "J" -> System.out.println("Exercise J");
+                case "J" -> boardSetting.createBoard();
                 case "H" -> HighScore.toto();
             }
             choice = get_user_choice();
