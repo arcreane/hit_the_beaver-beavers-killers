@@ -5,7 +5,12 @@ public class mainBeaversKillers {
         // Welcome message
         System.out.println("Welcome !");
         // Listen to user answer
-        String choice = get_user_choice();
+        String menu = """
+                You can choose between these options :
+                ***** Exercise 1 --> type P
+                ***** Exercise 2 --> type H
+                ***** Quit app   --> type Q""";
+        String choice = getPlayerEntry.get_usr_choice(menu, "P", "H", "Q");
         while (!choice.equals("Q")) {
             switch (choice) {
                 case "J" -> boardSetting.createBoard();
