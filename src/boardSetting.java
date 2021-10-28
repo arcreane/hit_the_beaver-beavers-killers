@@ -4,8 +4,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class boardSetting {
-    public static void createBoard() {
+    public static int[] createBoard() {
         System.out.println("Select level");
+        int[] board_Param = new int[2];
         int height = 0;
         int timer = 0;
         String menu = """
@@ -46,8 +47,9 @@ public class boardSetting {
                     .collect(Collectors.joining()));
             System.out.println(Arrays.toString(board[i]));
         }
-
-
+        board_Param[0] = timer;
+        board_Param[1] = height;
+        return board_Param;
 
     }
 
