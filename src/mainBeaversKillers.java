@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class mainBeaversKillers {
     public static void main(String[] args) {
         // Welcome message
@@ -13,7 +11,7 @@ public class mainBeaversKillers {
         String choice = "";
         while (!choice.equals("Q")) {
             switch (choice) {
-                case "P" -> TimerModule.Timer();
+                case "P" -> GamePlay.Timer();
                 case "H" -> HighScore.toto();
 //                case "t" -> TimerModule.Timer();
             }
