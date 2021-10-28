@@ -1,10 +1,8 @@
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class boardSetting {
-    public static int[] createBoard() {
+    public static String[][] createBoard() {
         System.out.println("Select level");
         int[] board_Param = new int[2];
         int height = 0;
@@ -29,12 +27,20 @@ public class boardSetting {
                 timer = 3000;
         }
 
-
-        StringBuilder build = new StringBuilder();
         String[][] board = new String[height][height];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                board[i][j] = "🟦";
+            }
+        }
+        return board;
+    }
 
+    public static void displayBoard(String[][] board ) {
+        StringBuilder build = new StringBuilder();
+        build.append("  ");
         for (int i = 0; i < board.length + 1; i++) {
-            build.append(1 + "   ");
+            build.append(i + "  ");
         }
         build.append("\n");
         for (int i = 0; i < board.length + 1; i++) {
@@ -42,19 +48,18 @@ public class boardSetting {
             build.append("___");
         }
         build.append("\n");
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < board.length; i++) {
             build.append(Stream.of(board[i])
-                    .collect(Collectors.joining()));
-            System.out.println(Arrays.toString(board[i]));
+                    .collect(Collectors.joining("  ", (i) + "⎟", "")));
+            build.append("\n");
         }
-        board_Param[0] = timer;
-        board_Param[1] = height;
-        return board_Param;
-
+        System.out.println((build.toString()));
     }
 
-
 }
+
+
+
 
 
 
