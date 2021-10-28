@@ -4,7 +4,6 @@ import java.util.stream.Stream;
 public class boardSetting {
     public static String[][] createBoard() {
         System.out.println("Select level");
-        int[] board_Param = new int[2];
         int height = 0;
         int timer = 0;
         String menu = """
@@ -30,7 +29,7 @@ public class boardSetting {
         String[][] board = new String[height][height];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                board[i][j] = "🟦";
+                board[i][j] = "●︎";
             }
         }
         return board;
@@ -39,18 +38,18 @@ public class boardSetting {
     public static void displayBoard(String[][] board ) {
         StringBuilder build = new StringBuilder();
         build.append("  ");
-        for (int i = 0; i < board.length + 1; i++) {
-            build.append(i + "  ");
+        for (int i = 0; i < board.length ; i++) {
+            build.append(i + "   ");
         }
         build.append("\n");
-        for (int i = 0; i < board.length + 1; i++) {
+        for (int i = 0; i < board.length ; i++) {
 
-            build.append("___");
+            build.append("_____");
         }
         build.append("\n");
         for (int i = 0; i < board.length; i++) {
             build.append(Stream.of(board[i])
-                    .collect(Collectors.joining("  ", (i) + "⎟", "")));
+                    .collect(Collectors.joining("   ", (i) + "⎟", "  -")));
             build.append("\n");
         }
         System.out.println((build.toString()));
