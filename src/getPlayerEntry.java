@@ -1,6 +1,5 @@
-import java.util.Arrays;
-import java.util.Scanner;
 
+import java.util.Scanner;
 
 public class getPlayerEntry {
     static int[] getcoordEntry(int height) {
@@ -24,11 +23,12 @@ public class getPlayerEntry {
                 }
                 entry[i] = number;
                 }
-            if(entry[0]<height && entry[1]<height)
+            if(entry[0]<=height && entry[1]<=height)
                 valid = true;
             }while (!valid);
             scanner.nextLine();
-            System.out.println(Arrays.toString(entry));
+            //
+            //System.out.println(Arrays.toString(entry));
             return entry;
         }
 
