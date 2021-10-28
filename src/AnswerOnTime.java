@@ -18,14 +18,14 @@ public class AnswerOnTime {
 
     public static void getInput() throws Exception {
         Timer timer = new Timer();
-        timer.schedule(new CustomTimer(), 10 * 1000);
+        timer.schedule(new CustomTimer(), 5*1000);
 
-        System.out.println("Input a string within 10 seconds: ");
+        System.out.println("Input a string within 5 seconds: ");
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(System.in));
         str = in.readLine();
 
-        timer.cancel();
+//        timer.cancel();
 //        System.out.println("you have entered: " + str);
     }
 
