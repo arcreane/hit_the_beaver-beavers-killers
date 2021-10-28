@@ -1,23 +1,38 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class getPlayerEntry {
-    static String getEntry(){
-        String entry;
-        Scanner scanner = new Scanner(System.in);
-        do {
-            System.out.println("Where is the beaver, enter number coordinates as : x,y");
-            entry = scanner.nextLine();
-        } while (!validateEntry(entry));
-        scanner.nextLine();
-        return entry;
-    }
-    static boolean validateEntry(String p_s_entry){
+    static int[] getcoordEntry(int height) {
         /*
-        Checks if user input is entered as expected by player.
+        Return a valid Player entry for game loop, whatever the entry is.
          */
-        String regex = "\\d,\\d";
-        return regex.matches(p_s_entry);
-    }
+        int[] entry = new int[2];
+        boolean valid = false;
+        Scanner scanner = new Scanner(System.in);
+        outter:
+        do {
+            System.out.println("Where is the beaver, enter number coordinates as : line column.\nExample : 0 1");
+            for (int i = 0; i < 2; i++) {
+                int number;
+                try {
+                    number = scanner.nextInt();
+                }catch(Exception e) {
+                    System.out.println("No valid entry!");
+                    scanner.nextLine();
+                    continue outter;
+                }
+                entry[i] = number;
+                }
+            if(entry[0]<height && entry[1]<height)
+                valid = true;
+            }while (!valid);
+            scanner.nextLine();
+            System.out.println(Arrays.toString(entry));
+            return entry;
+        }
+
+
 
     static String get_usr_choice(String menuList, String A, String B, String C) {
         /*
