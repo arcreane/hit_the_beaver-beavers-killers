@@ -11,9 +11,9 @@ public class CustomTimer extends TimerTask {
             System.out.println("Too late. Next try...");
             System.exit(0);
         }
-        if(timecount==0){
-            cancel();
+//        if(timecount==0){
+//            cancel();
+        timecount--;
         }
-    timecount--;
     }
-}
+
