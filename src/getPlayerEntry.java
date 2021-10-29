@@ -1,10 +1,19 @@
+/**
+ * 0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟
+ * 🟦
+ * 🔹
+ * 🐼🐭🐨
+ */
+
+import ConsoleColors.ConsoleColors;
+
 import java.util.Scanner;
 
 public class getPlayerEntry {
     static int board_Mode = 0;
     static String Cell_icon = "+";
-    static String Marmot_icon = "✖︎";
-    static String usr_level="Expert";
+    static String usr_level="Rookie";
+    static String Marmot_icon =  ConsoleColors.RED+"✖︎"+ConsoleColors.RESET;
 
     static int[] getcoordEntry(int height) {
         //Return a valid Player entry for game loop, whatever the entry is
