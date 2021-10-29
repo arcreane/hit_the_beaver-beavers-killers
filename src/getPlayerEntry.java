@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class getPlayerEntry {
     static int board_Mode = 0;
-    static String Cell_icon = "●";
-    static String Marmot_icon = "🐼";
+    static String Cell_icon = "+";
+    static String Marmot_icon = "✖︎";
     static String usr_level="Rookie";
 
     static int[] getcoordEntry(int height) {
@@ -44,31 +44,41 @@ public class getPlayerEntry {
     public static void Preferences() {
         System.out.println("Select Option");
         String menu = """
-                1 : Mode Texte
-                2 : Mode Emoji
+                1 : Switch board to Texte/EMOJI
+                2 : Display last Log
                 3 : User level (Rookie, Expert)
                 """;
         String level = get_usr_choice(menu, "1", "2", "3");
         switch (level) {
             case "1":
+                if (board_Mode ==2){
                 board_Mode = 1;
                 Cell_icon = "●";
                 Marmot_icon = "☺︎";
-                break;
-            case "2":
+                boardSetting.fillUp();
+                break;}
+                else{
                 board_Mode = 2;
                 Cell_icon = "🟦";
                 Marmot_icon = "🐼";
+                boardSetting.fillUp();
                 break;
+                }
+            case "2": {
+                GamePlay.display_Log();
+                break;
+            }
             case "3":
                 menu= """
                         -1: Rookie
                         -2: Expert
-                        -3: Exit""";
+                        -3: Superman""";
                 level = get_usr_choice(menu, "1", "2", "3");
                 switch (level){
                     case "1": usr_level="Rookie";
                     case "2": usr_level="Expert";
+                    case "3":
+                        System.out.println("SORRY: not Implemented yet");;
                 }
 
         }
