@@ -48,18 +48,18 @@ public class GamePlay {
      */
     public static boolean Usr_shoot() throws IOException {
         String[] coordinates_input = new String[2];
-        long spent_Time = 0;
+//        long spent_Time = 0;
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Hit the Beaver !");
-        System.out.print("Enter: x y (space) :");
+        System.out.print("Enter coordinates (line+column) :");
 
         long startTime = System.currentTimeMillis();// init of starting time
         while ((System.currentTimeMillis() - startTime) < lapse &&
                 !in.ready()) {
-            spent_Time = System.currentTimeMillis() - startTime;
+            usr_Speed = Long.toString(System.currentTimeMillis() - startTime);
         }// wait for the timeout or usr input to exit while loop
-        System.out.println("timeout: " + spent_Time);
+        System.out.println("timeout: " + usr_Speed);
         if (in.ready()) {
             coordinates_input = in.readLine().split(" ");
             try {   //verify input if compliant with coordinates
@@ -98,8 +98,9 @@ public class GamePlay {
 
     /**
      * Update the game log at myTurns
-     * @param score     current score at round my Turns
-     * @param hit_miss  message to be added : hit/miss/bad one
+     *
+     * @param score    current score at round my Turns
+     * @param hit_miss message to be added : hit/miss/bad one
      */
     public static void update_Log(int score, String hit_miss) {
         game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs " + x_coordinate +
@@ -108,6 +109,7 @@ public class GamePlay {
 
     /**
      * Operate the 10 rounds for a game (display, updates Marmots and manage usr answers
+     *
      * @throws IOException
      */
     public static void playRounds() throws IOException {
@@ -118,7 +120,7 @@ public class GamePlay {
         lapse = boardSetting.timer;
         init_Log();
         if (!(player_board == null)) { // null is returned if the player wants to stop the game
-            for (int myTurns = 0; myTurns < beaverTurns; myTurns++) { // loop for 10 rounds
+            for (int i = 0; i < beaverTurns; i++) { // loop for 10 rounds
                 player_board = setMarmot(boardSetting.height, player_board);// update Marmot pos
                 boardSetting.displayBoard(player_board);// display the new board
                 if (Usr_shoot()) {// player input evaluation
@@ -127,11 +129,12 @@ public class GamePlay {
                         game_Score++;
                         update_Log(game_Score, "Hit:");
                     } else {
-                        System.out.println("MISSED: try again !");
+                        System.out.println("MISSED: what a shame !");
                         update_Log(game_Score, "Miss:");
                     }
                 } else
                     update_Log(game_Score, "Bad/No input:");
+            myTurns++;
             }
         }
         System.out.println("Game Over ...");
