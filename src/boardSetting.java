@@ -1,10 +1,3 @@
-/**
- * 0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟
- * 🟦
- * 🔹
- * 🐼🐭🐨
- */
-
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,20 +41,21 @@ public class boardSetting {
 
         //initialization of level with size of the board and timer
         switch (level) {
-            case "1":
+            case "1" -> {
                 height = 5;
                 if (getPlayerEntry.usr_level.equals("Rookie")) timer = 8000;
                 else timer = 5000;
-                break;
-            case "2":
+            }
+            case "2" -> {
                 height = 7;
                 if (getPlayerEntry.usr_level.equals("Rookie")) timer = 7000;
                 else timer = 4000;
-                break;
-            case "3":
+            }
+            case "3" -> {
                 height = 10;
                 if (getPlayerEntry.usr_level.equals("Rookie")) timer = 5000;
                 else timer = 3500;
+            }
         }
         //create a board
         String[][] board = new String[height][height];
@@ -91,17 +85,12 @@ public class boardSetting {
         // it's my column
         for (int i = 0; i < board.length; i++) {
             build.append(Stream.of(board[i])
-                    .collect(Collectors.joining("   ", (boardRow[i]) + "⎟", "  -")));
+                    .collect(Collectors.joining("   ", (boardRow[i]) + "⎟", "  ")));
             build.append("\n");
         }
-        // print a board with my stringbuilder builde.
+        // print a board with my Stringbuilder build.
         System.out.println((build.toString()));
+
     }
 
 }
-
-
-
-
-
-
