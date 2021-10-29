@@ -30,15 +30,29 @@ public class HighScore {
     }
 
     public static void Sort_Winners(int position, int points, String name) {
-        String tmp1 = m_scoreArray[position][0];
-        String tmp2 = m_scoreArray[position][1];
-
         for (int i = 4; i > position; i--) {
             m_scoreArray[i][0] = m_scoreArray[i - 1][0];
             m_scoreArray[i][1] = m_scoreArray[i - 1][1];
         }
         m_scoreArray[position][0] = name;
         m_scoreArray[position][1] = Integer.toString(points);
+    }
+
+    public static String define_Name() {
+        String name = "";
+        String confirm = "y";
+        Scanner scan = new Scanner(System.in);
+        while (confirm == "y" || confirm == "Y") {
+            System.out.println("Enter your name : ");
+            name = scan.nextLine();
+            System.out.println("Your name is : " + name);
+            System.out.println("Confirm y/n: ");
+            confirm = scan.nextLine();
+            System.out.println("scan = ."+confirm+".");
+            if (confirm.equals("")) confirm = "y";
+        }
+//        scan.close();
+        return name;
     }
 
     public static void Scoring_function() {
@@ -48,16 +62,14 @@ public class HighScore {
         int position = 0;
 
         System.out.println("High Score Display");
-        Scanner scan = new Scanner(System.in);
-        init_HighScores();
+//        init_HighScores();
         affiche_High_Score();
         for (int test = 0; test < 4; test++) {
             points = (int) (Math.random() * 9 + 1);
             position = verif_position(points);
             System.out.println("position = " + position);
             if (position < 5) {
-                System.out.println("Enter your name : ");
-                name = scan.nextLine();
+                name = define_Name();
                 Sort_Winners(position, points, name);
             }
             affiche_High_Score();

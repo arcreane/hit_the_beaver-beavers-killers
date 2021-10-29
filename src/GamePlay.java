@@ -1,92 +1,99 @@
-import java.util.Timer;
-import java.util.TimerTask;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ * GamePlay class manage the game time once the difficulty level is defined
+ */
 
 public class GamePlay {
     static boolean input_Done = true;
-    static int myTurns;
-    static int staticID = 0;
-    static int lin = 0;
-    static int col = 0;
-    static private String str = "";
-    static private int lapse;
-    static int beaverTurns = 10;
+    static int myTurns; // current turns on 10 to be played
+    static int lin = 0; // lin is x pos for the Marmot
+    static int col = 0; // lin is y pos for the Marmot
+    //    static String str = "";
+    static int lapse;   // time length for the timer
+    static int beaverTurns = 10;    // 10 rounds for aech game
+    static int x_coordinate = 0;    // x pos entered by the gamer
+    static int y_coordinate = 0;    // y pos entered by the gamer
+    static String[] game_log = new String[10];
 
-//    static TimerTask task = new TimerTask() {
-//        public void run() {
-//            if (str.equals("")) {
-//                System.out.println("Time out overrun. next board ...");
-//                input_Done = false;
-//                System.exit(0);
-//            }
-//        }
-//    };
-
-    public static String[][] create_boards(int board_dim) {
-        String[][] player_board = new String[board_dim][board_dim];
-        for (int i = 0; i < board_dim; i++) {
-            for (int j = 0; j < board_dim; j++) {
-                player_board[i][j] = "🟦";
-            }
-        }
-        return player_board;
+    // setMarmot updates a new random pos for the Marmot
+    public static String[][] setMarmot(int board_dim, String[][] board) {
+//        System.out.println("dimension tableau "+ board_dim);
+        board[lin][col] = getPlayerEntry.Cell_icon; // re_initialise the previous Marmot pos
+        lin = (int) (Math.random() * (board_dim - 1) + 1);// set a random pos for the Marmot (same for next)
+        col = (int) (Math.random() * (board_dim - 1) + 1);
+//        System.out.println(("lin/col :"+lin+"/"+col));
+        board[lin][col] = getPlayerEntry.Marmot_icon; //sets the icon of the Marmot at new pos
+        System.out.println("Round : " + myTurns);// display the current round to the gamer
+        return board;
     }
 
-    public static void display_board(int board_dim, int current_Turn, String[][] board) {
-        board[lin][col] = "🟦";
-        lin = (int) (Math.random() * (board_dim-1)+1);
-        col = (int) (Math.random() * (board_dim-1)+1);
-        String text_row;
-        board[lin][col] = "🐼";
-        System.out.println("Round : " + current_Turn);
-        System.out.println("   0  1  2  3  4  5  6  7  8  9");
-        for (int i = 0; i < board_dim; i++) {
-            text_row = "";
-            for (int j = 0; j < board_dim; j++) {
-                text_row = text_row + " " + board[i][j];
+    // wait for 'lapse' time an input from the gamer
+    // got the help of Julien to set this function/Method.
+    public static boolean Usr_shoot() throws IOException {
+        String[] coordinates_input = new String[2];
+        long spent_Time = 0;
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Hit the Beaver !");
+        System.out.print("Enter: x y (space) :");
+
+        long startTime = System.currentTimeMillis();// init of starting time
+        while ((System.currentTimeMillis() - startTime) < lapse &&
+                !in.ready()) {
+            spent_Time = System.currentTimeMillis() - startTime;
+        }// wait for the timeout or usr input to exit while loop
+        System.out.println("timeout: " + spent_Time);
+        if (in.ready()) {
+            coordinates_input = in.readLine().split(" ");
+            try {   //verify inpout if compliant with coordinates
+                x_coordinate = Integer.parseInt(coordinates_input[0]);
+                y_coordinate = Integer.parseInt(coordinates_input[1]);
+            } catch (Exception e) {
+                System.out.println("No valid entry!");
+//                myTurns--;
+                return false; // false if no coordinates are set
             }
-            if (i < 9) System.out.println("0" + (i + 1) + " " + text_row);
-            if (i == 9) System.out.println("10" + " " + text_row);
+            return true;// true if relevant coordinates are set
+        } else {
+            System.out.println("Too late, too slow ...");
+            return false;// false if usr waited too long to answer.
         }
     }
 
-//    public static void getInput() throws Exception {
-//        Timer timer = new Timer();
-//        timer.schedule(task, lapse * 1000);
-//
-//        System.out.println("Input coordinates within " + lapse + " seconds: ");
-//        BufferedReader in = new BufferedReader(
-//                new InputStreamReader(System.in));
-//        str = in.readLine();
-//        timer.purge();
-//        System.out.println("timer.purge");
-//        timer.cancel();
-//        System.out.println("timer.cancel");
-////        System.out.println( "you have entered: "+ str );
-//    }
-
-//    public static void CurrentTurn() {
-//        try {
-//            getInput();
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-
-
-    public static void Timer() {
-       int[] board_Param = boardSetting.createBoard();
-        lapse= board_Param[0];
-        String[][] play_board = create_boards(board_Param[1]);
-//        String[][] gameResult = new String[10][10];
-        for (int myTurns = 0; myTurns < beaverTurns; myTurns++) {
-            display_board(board_Param[1], myTurns, play_board);
-            str=AnswerOnTime.Coord_Idle(lapse);
-            //            CurrentTurn();
-            if(input_Done) System.out.println("vous avez entré : "+ str);
-            else System.out.println("Bad news you've been too long ...");
+    // operate the 10 rounds for a game (display, updates Marmots and manage usr answers
+    public static void playRounds() throws IOException {
+        String[][] player_board = boardSetting.createBoard();
+        int game_Score = 0;
+        int score_position = 5;
+        String gamer_name = "";
+        lapse = boardSetting.timer;
+        if (!(player_board == null)) { // null is returned if the player wants to stop the game
+            for (int myTurns = 0; myTurns < beaverTurns; myTurns++) { // loop for 10 rounds
+                player_board = setMarmot(boardSetting.height, player_board);// update Marmot pos
+                boardSetting.displayBoard(player_board);// display the new board
+                if (Usr_shoot()) {// player input evaluation
+                    if (x_coordinate == lin && y_coordinate == col) {
+                        System.out.println("HIT HIT HIT HOURRA !");
+                        game_Score++;
+                    } else System.out.println("MISSED: try again !");
+                }
+            }
         }
         System.out.println("Game Over ...");
+        // verifies if the score allows to high score application
+        score_position = HighScore.verif_position(game_Score);
+        System.out.println("position au High Score: " + score_position);
+        if (score_position < 4) { //condition to be in High Score list
+            gamer_name = HighScore.define_Name(); // define a winner name
+            HighScore.Sort_Winners(score_position, game_Score, gamer_name);// sort the score list
+            HighScore.affiche_High_Score(); // display the High Score list
+        }
     }
 }
-
+//TRASH (before game over msg
+//            str = AnswerOnTime.Coord_Idle(lapse);
+//            if (input_Done) System.out.println("vous avez entré : " + str);
+//            else System.out.println("Bad news you've been too long ...");
