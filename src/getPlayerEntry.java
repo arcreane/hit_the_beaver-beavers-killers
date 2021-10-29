@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class getPlayerEntry {
     static int board_Mode = 0;
     static String Cell_icon = "●";
-    static String Marmot_icon = "🐼";
+    static String Marmot_icon = "☺";
     static String usr_level="Rookie";
 
     static int[] getcoordEntry(int height) {
@@ -54,11 +54,13 @@ public class getPlayerEntry {
                 board_Mode = 1;
                 Cell_icon = "●";
                 Marmot_icon = "☺︎";
+                boardSetting.fillUp();
                 break;
             case "2":
                 board_Mode = 2;
                 Cell_icon = "🟦";
                 Marmot_icon = "🐼";
+                boardSetting.fillUp();
                 break;
             case "3":
                 menu= """

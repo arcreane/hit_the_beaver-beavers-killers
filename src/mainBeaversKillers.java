@@ -4,6 +4,8 @@ public class mainBeaversKillers {
     public static void main(String[] args) throws IOException {
         // Welcome message
         HighScore.init_HighScores();
+        getPlayerEntry.board_Mode = 1;
+        boardSetting.fillUp();
         System.out.println("Welcome !");
         // Listen to user answer
         String menu = """

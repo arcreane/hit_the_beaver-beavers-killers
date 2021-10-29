@@ -11,6 +11,28 @@ import java.util.stream.Stream;
 public class boardSetting {
     static int timer = 0;
     static int height = 0;
+    static String[] boardRow = new String[10];
+//    static String[] boardCol = new String[10];
+
+    public static  void fillUp() {
+        if (getPlayerEntry.board_Mode == 1) {
+            for (int i = 0; i < 10; i++) {
+                boardRow[i] = Integer.toString(i);
+            }
+        } else {
+            boardRow[0] ="0️⃣";
+            boardRow[1] ="1️⃣";
+            boardRow[2] ="2️⃣";
+            boardRow[3] ="3️⃣";
+            boardRow[4] ="4️⃣";
+            boardRow[5] ="5️⃣";
+            boardRow[6] ="6️⃣";
+            boardRow[7] ="7️⃣";
+            boardRow[8] ="8️⃣";
+            boardRow[9] ="9️⃣";
+        }
+    }
+
 
     public static String[][] createBoard() {
         System.out.println("Select level");
@@ -24,17 +46,17 @@ public class boardSetting {
         switch (level) {
             case "1":
                 height = 5;
-                if(getPlayerEntry.usr_level.equals("Rookie")) timer = 8000;
+                if (getPlayerEntry.usr_level.equals("Rookie")) timer = 8000;
                 else timer = 5000;
                 break;
             case "2":
                 height = 7;
-                if(getPlayerEntry.usr_level.equals("Rookie")) timer = 7000;
+                if (getPlayerEntry.usr_level.equals("Rookie")) timer = 7000;
                 else timer = 4000;
                 break;
             case "3":
                 height = 10;
-                if(getPlayerEntry.usr_level.equals("Rookie")) timer = 5000;
+                if (getPlayerEntry.usr_level.equals("Rookie")) timer = 5000;
                 else timer = 3500;
         }
         String[][] board = new String[height][height];
@@ -43,7 +65,7 @@ public class boardSetting {
                 board[i][j] = getPlayerEntry.Cell_icon;
             }
         }
-        if(!level.equals("Q")) return board;
+        if (!level.equals("Q")) return board;
         else return null;
     }
 
@@ -51,7 +73,7 @@ public class boardSetting {
         StringBuilder build = new StringBuilder();
         build.append("  ");
         for (int i = 0; i < board.length; i++) {
-            build.append(i + "   ");
+            build.append(boardRow[i] + "   ");
         }
         build.append("\n");
         for (int i = 0; i < board.length; i++) {
@@ -60,7 +82,7 @@ public class boardSetting {
         build.append("\n");
         for (int i = 0; i < board.length; i++) {
             build.append(Stream.of(board[i])
-                    .collect(Collectors.joining("   ", (i) + "⎟", "  -")));
+                    .collect(Collectors.joining("   ", (boardRow[i]) + "⎟", "  -")));
             build.append("\n");
         }
         System.out.println((build.toString()));
