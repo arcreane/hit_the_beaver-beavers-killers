@@ -139,12 +139,12 @@ public class GamePlay {
         }
         System.out.println("Game Over ...");
         // verifies if the score allows to high score application
-        score_position = HighScore.verif_position(game_Score);
+        score_position = HighScore.check_position(game_Score);
         System.out.println("position au High Score: " + score_position);
         if (score_position < 4) { //condition to be in High Score list
             gamer_name = HighScore.define_Name(); // define a winner name
             HighScore.Sort_Winners(score_position, game_Score, gamer_name);// sort the score list
-            HighScore.affiche_High_Score(); // display the High Score list
+            HighScore.display_High_Scores(); // display the High Score list
             display_Log();
         }
     }
