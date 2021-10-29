@@ -126,15 +126,15 @@ public class GamePlay {
                 boardSetting.displayBoard(player_board);// display the new board
                 if (Usr_shoot()) {// player input evaluation
                     if (x_coordinate == lin && y_coordinate == col) {
-                        System.out.println("HIT HIT HIT HOURRA !");
+                        System.out.println("HIT HIT HIT HOURRA ! Score "+game_Score+"/10");
                         game_Score++;
                         update_Log(game_Score, "Hit:");
                     } else {
-                        System.out.println("MISSED: what a shame !");
+                        System.out.println("MISSED: what a shame !  Score "+game_Score+"/10");
                         update_Log(game_Score, "Miss:");
                     }
                 } else
-                    update_Log(game_Score, "Bad/No input:");
+                    update_Log(game_Score, "Bad or No input:");
             myTurns++;
             }
         }
