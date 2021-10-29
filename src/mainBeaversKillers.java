@@ -27,7 +27,12 @@ public class mainBeaversKillers {
         while (!choice.equals("Q")) {
             switch (choice) {
                 case "P" -> GamePlay.playRounds();
-                case "H" -> HighScore.affiche_High_Score();
+                case "H" -> {
+                    System.out.println("****** HIGH SCORES ******");
+                    HighScore.print_Scores(0,"Hard");
+                    HighScore.print_Scores(5,"Medium");
+                    HighScore.print_Scores(10,"Easy");
+                }
                 case "O" -> getPlayerEntry.Preferences();
             }
             choice = getPlayerEntry.get_usr_choice(menu, "P", "H", "O");
