@@ -138,19 +138,16 @@ public class GamePlay {
             myTurns++;
             }
         }
-        System.out.println("Game Over ...");
+        System.out.println("Game finished !");
         // verifies if the score allows to high score application
         score_position = HighScore.check_position(game_Score);
-        System.out.println("position au High Score: " + score_position);
         if (score_position < 4) { //condition to be in High Score list
+            System.out.println("High Score position : " + score_position);
             gamer_name = HighScore.define_Name(); // define a winner name
             HighScore.Sort_Winners(score_position, game_Score, gamer_name);// sort the score list
             HighScore.display_High_Scores(); // display the High Score list
             display_Log();
         }
+        else System.out.println("you didn't succeed to step into Hall of Fame");
     }
 }
-//TRASH (before game over msg
-//            str = AnswerOnTime.Coord_Idle(lapse);
-//            if (input_Done) System.out.println("vous avez entré : " + str);
-//            else System.out.println("Bad news you've been too long ...");
