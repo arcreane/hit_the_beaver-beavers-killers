@@ -16,11 +16,20 @@ public class GamePlay {
     static int beaverTurns = 10;    // 10 rounds for each game
     static int x_coordinate = 0;    // x pos entered by the gamer
     static int y_coordinate = 0;    // y pos entered by the gamer
+    static String usr_Speed = "";
     static String[] game_log = new String[10];
 
-    // setMarmot updates a new random pos for the Marmot
+    /**
+     * setMarmot updates a new random pos for the Marmot    *
+     *
+     * @param board_dim Game board dimensions
+     * @param board     current board being played
+     * @return return the updated board
+     */
     public static String[][] setMarmot(int board_dim, String[][] board) {
-//        System.out.println("dimension tableau "+ board_dim);
+/**
+ */
+        //        System.out.println("dimension tableau "+ board_dim);
         board[lin][col] = getPlayerEntry.Cell_icon; // re_initialise the previous Marmot pos
         lin = (int) (Math.random() * (board_dim - 1) + 1);// set a random pos for the Marmot (same for next)
         col = (int) (Math.random() * (board_dim - 1) + 1);
@@ -30,8 +39,13 @@ public class GamePlay {
         return board;
     }
 
-    // wait for 'lapse' time an input from the gamer
-    // got the help of Julien to set this function/Method.
+    /**
+     * wait for 'lapse' time an input from the gamer
+     * got the help of Julien to set this function/Method.
+     *
+     * @return returns true if answer is relevant, false otherwise.
+     * @throws IOException manage eventual bad input
+     */
     public static boolean Usr_shoot() throws IOException {
         String[] coordinates_input = new String[2];
         long spent_Time = 0;
@@ -48,12 +62,11 @@ public class GamePlay {
         System.out.println("timeout: " + spent_Time);
         if (in.ready()) {
             coordinates_input = in.readLine().split(" ");
-            try {   //verify inpout if compliant with coordinates
+            try {   //verify input if compliant with coordinates
                 x_coordinate = Integer.parseInt(coordinates_input[0]);
                 y_coordinate = Integer.parseInt(coordinates_input[1]);
             } catch (Exception e) {
                 System.out.println("No valid entry!");
-//                myTurns--;
                 return false; // false if no coordinates are set
             }
             return true;// true if relevant coordinates are set
@@ -63,23 +76,47 @@ public class GamePlay {
         }
     }
 
-    public static void display_Log(){
+    /**
+     * Displays the last game details : hit/miss ...
+     */
+    public static void display_Log() {
         System.out.println("\nYour last Game Summary:");
-        for(int i =0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             System.out.println(game_log[i]);
+        }
+        System.out.println("---\n");
+    }
+
+    /**
+     * initialise the game_log array
+     */
+    public static void init_Log() {
+        for (int i = 0; i < 10; i++) {
+            game_log[i] = "-" + i + ": ";
         }
     }
 
-    // operate the 10 rounds for a game (display, updates Marmots and manage usr answers
+    /**
+     * Update the game log at myTurns
+     * @param score     current score at round my Turns
+     * @param hit_miss  message to be added : hit/miss/bad one
+     */
+    public static void update_Log(int score, String hit_miss) {
+        game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs " + x_coordinate +
+                "/" + y_coordinate + hit_miss + score + "/10 - time :" + usr_Speed;
+    }
+
+    /**
+     * Operate the 10 rounds for a game (display, updates Marmots and manage usr answers
+     * @throws IOException
+     */
     public static void playRounds() throws IOException {
         String[][] player_board = boardSetting.createBoard();
         int game_Score = 0;
         int score_position = 5;
         String gamer_name = "";
         lapse = boardSetting.timer;
-        for (int i = 0; i < 10; i++) {
-            game_log[i] = "-" + i + ": ";
-        }
+        init_Log();
         if (!(player_board == null)) { // null is returned if the player wants to stop the game
             for (int myTurns = 0; myTurns < beaverTurns; myTurns++) { // loop for 10 rounds
                 player_board = setMarmot(boardSetting.height, player_board);// update Marmot pos
@@ -88,16 +125,13 @@ public class GamePlay {
                     if (x_coordinate == lin && y_coordinate == col) {
                         System.out.println("HIT HIT HIT HOURRA !");
                         game_Score++;
-                        game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs " + x_coordinate+
-                        "/" + y_coordinate + " Hit:" + game_Score + "/10";
+                        update_Log(game_Score, "Hit:");
                     } else {
                         System.out.println("MISSED: try again !");
-                        game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs " + x_coordinate+
-                                "/" + y_coordinate + " Miss:" + game_Score + "/10";
+                        update_Log(game_Score, "Miss:");
                     }
-                }
-                else game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs (bad input) Hit:" + game_Score + "/10";
-
+                } else
+                    update_Log(game_Score, "Bad/No input:");
             }
         }
         System.out.println("Game Over ...");

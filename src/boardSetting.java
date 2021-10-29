@@ -6,23 +6,23 @@ public class boardSetting {
     static int height = 0;
     static String[] boardRow = new String[10];
 
-    public static  void fillUp() {
+    public static void fillUp() {
         // create row and column with emoji icone
         if (getPlayerEntry.board_Mode == 1) {
             for (int i = 0; i < 10; i++) {
                 boardRow[i] = Integer.toString(i);
             }
         } else {
-            boardRow[0] ="0️⃣";
-            boardRow[1] ="1️⃣";
-            boardRow[2] ="2️⃣";
-            boardRow[3] ="3️⃣";
-            boardRow[4] ="4️⃣";
-            boardRow[5] ="5️⃣";
-            boardRow[6] ="6️⃣";
-            boardRow[7] ="7️⃣";
-            boardRow[8] ="8️⃣";
-            boardRow[9] ="9️⃣";
+            boardRow[0] = "0️⃣";
+            boardRow[1] = "1️⃣";
+            boardRow[2] = "2️⃣";
+            boardRow[3] = "3️⃣";
+            boardRow[4] = "4️⃣";
+            boardRow[5] = "5️⃣";
+            boardRow[6] = "6️⃣";
+            boardRow[7] = "7️⃣";
+            boardRow[8] = "8️⃣";
+            boardRow[9] = "9️⃣";
         }
     }
 
@@ -67,12 +67,15 @@ public class boardSetting {
         if (!level.equals("Q")) return board;
         else return null;
     }
-    // create a visual for my board
+
     public static void displayBoard(String[][] board) {
+/**
+ *  create a visual for my board
+ */
         StringBuilder build = new StringBuilder();// create build for reused
         build.append("  ");
         //update spacing for my emoji mode
-        if (getPlayerEntry.board_Mode==2)
+        if (getPlayerEntry.board_Mode == 2)
             build.append(" ");
         //it's my row
         for (int i = 0; i < board.length; i++) {
