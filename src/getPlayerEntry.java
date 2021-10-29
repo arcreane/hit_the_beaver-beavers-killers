@@ -75,10 +75,14 @@ public class getPlayerEntry {
                         -3: Superman""";
                 level = get_usr_choice(menu, "1", "2", "3");
                 switch (level){
-                    case "1": usr_level="Rookie";
-                    case "2": usr_level="Expert";
+                    case "1": {
+                        usr_level = "Rookie";
+                        break;
+                    }
+                    case "2": {usr_level="Expert";
+                        break;}
                     case "3":
-                        System.out.println("SORRY: not Implemented yet");;
+                        System.out.println("SORRY: not Implemented yet");
                 }
 
         }

@@ -6,13 +6,16 @@ public class boardSetting {
     static int height = 0;
     static String[] boardRow = new String[10];
 
+    /**
+     * Define Row and Column titles
+     */
     public static void fillUp() {
-        // create row and column with emoji icone
+        // fill up array with numbers as String
         if (getPlayerEntry.board_Mode == 1) {
             for (int i = 0; i < 10; i++) {
                 boardRow[i] = Integer.toString(i);
             }
-        } else {
+        } else { // fill up row/columns titles of array with EMOJI
             boardRow[0] = "0️⃣";
             boardRow[1] = "1️⃣";
             boardRow[2] = "2️⃣";
@@ -26,7 +29,10 @@ public class boardSetting {
         }
     }
 
-
+    /**
+     * Creates the array of the game according to chosen level
+     * @return
+     */
     public static String[][] createBoard() {
         System.out.println("Select level");
         height = 0;
@@ -68,30 +74,27 @@ public class boardSetting {
         else return null;
     }
 
-    public static void displayBoard(String[][] board) {
 /**
- *  create a visual for my board
+ *  create a formatted image to display the board
  */
-        StringBuilder build = new StringBuilder();// create build for reused
+    public static void displayBoard(String[][] board) {
+        StringBuilder build = new StringBuilder();// create 'build' array to be displayed
         build.append("  ");
-        //update spacing for my emoji mode
+        //update first spacing for my emoji mode
         if (getPlayerEntry.board_Mode == 2)
             build.append(" ");
-        //it's my row
+        //it's my title row
         for (int i = 0; i < board.length; i++) {
             build.append(boardRow[i] + "   ");
         }
         build.append("\n");
-        // it's a line enter my row and my board
-        for (int i = 0; i < board.length; i++) {
-        }
-        // it's my column
+        // it's my title column
         for (int i = 0; i < board.length; i++) {
             build.append(Stream.of(board[i])
                     .collect(Collectors.joining("   ", (boardRow[i]) + "⎟", "  ")));
             build.append("\n");
         }
-        // print a board with my Stringbuilder build.
+        // print a board with my Stringbuilder 'build'.
         System.out.println((build.toString()));
 
     }
