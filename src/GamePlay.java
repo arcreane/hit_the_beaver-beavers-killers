@@ -13,7 +13,7 @@ public class GamePlay {
     static int col = 0; // lin is y pos for the Marmot
     //    static String str = "";
     static int lapse;   // time length for the timer
-    static int beaverTurns = 10;    // 10 rounds for aech game
+    static int beaverTurns = 10;    // 10 rounds for each game
     static int x_coordinate = 0;    // x pos entered by the gamer
     static int y_coordinate = 0;    // y pos entered by the gamer
     static String[] game_log = new String[10];
@@ -63,6 +63,13 @@ public class GamePlay {
         }
     }
 
+    public static void display_Log(){
+        System.out.println("\nYour last Game Summary:");
+        for(int i =0;i<10;i++){
+            System.out.println(game_log[i]);
+        }
+    }
+
     // operate the 10 rounds for a game (display, updates Marmots and manage usr answers
     public static void playRounds() throws IOException {
         String[][] player_board = boardSetting.createBoard();
@@ -70,6 +77,9 @@ public class GamePlay {
         int score_position = 5;
         String gamer_name = "";
         lapse = boardSetting.timer;
+        for (int i = 0; i < 10; i++) {
+            game_log[i] = "-" + i + ": ";
+        }
         if (!(player_board == null)) { // null is returned if the player wants to stop the game
             for (int myTurns = 0; myTurns < beaverTurns; myTurns++) { // loop for 10 rounds
                 player_board = setMarmot(boardSetting.height, player_board);// update Marmot pos
@@ -78,8 +88,16 @@ public class GamePlay {
                     if (x_coordinate == lin && y_coordinate == col) {
                         System.out.println("HIT HIT HIT HOURRA !");
                         game_Score++;
-                    } else System.out.println("MISSED: try again !");
+                        game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs " + x_coordinate+
+                        "/" + y_coordinate + " Hit:" + game_Score + "/10";
+                    } else {
+                        System.out.println("MISSED: try again !");
+                        game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs " + x_coordinate+
+                                "/" + y_coordinate + " Miss:" + game_Score + "/10";
+                    }
                 }
+                else game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs (bad input) Hit:" + game_Score + "/10";
+
             }
         }
         System.out.println("Game Over ...");
@@ -90,6 +108,7 @@ public class GamePlay {
             gamer_name = HighScore.define_Name(); // define a winner name
             HighScore.Sort_Winners(score_position, game_Score, gamer_name);// sort the score list
             HighScore.affiche_High_Score(); // display the High Score list
+            display_Log();
         }
     }
 }
