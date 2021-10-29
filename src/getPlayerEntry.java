@@ -1,17 +1,10 @@
-/**
- * 0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟
- * 🟦
- * 🔹
- * 🐼🐭🐨
- */
-
 import java.util.Scanner;
 
 public class getPlayerEntry {
     static int board_Mode = 0;
     static String Cell_icon = "+";
     static String Marmot_icon = "✖︎";
-    static String usr_level="Rookie";
+    static String usr_level="Expert";
 
     static int[] getcoordEntry(int height) {
         //Return a valid Player entry for game loop, whatever the entry is
@@ -75,10 +68,14 @@ public class getPlayerEntry {
                         -3: Superman""";
                 level = get_usr_choice(menu, "1", "2", "3");
                 switch (level){
-                    case "1": usr_level="Rookie";
-                    case "2": usr_level="Expert";
+                    case "1": {
+                        usr_level = "Rookie";
+                        break;
+                    }
+                    case "2": {usr_level="Expert";
+                        break;}
                     case "3":
-                        System.out.println("SORRY: not Implemented yet");;
+                        System.out.println("SORRY: not Implemented yet");
                 }
 
         }

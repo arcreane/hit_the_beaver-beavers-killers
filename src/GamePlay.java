@@ -104,7 +104,7 @@ public class GamePlay {
      */
     public static void update_Log(int score, String hit_miss) {
         game_log[myTurns] = game_log[myTurns] + lin + "/" + col + " vs " + x_coordinate +
-                "/" + y_coordinate + hit_miss + score + "/10 - time :" + usr_Speed;
+                "/" + y_coordinate + " "+ hit_miss + score + "/10 - time : " + usr_Speed;
     }
 
     /**
