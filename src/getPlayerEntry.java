@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class getPlayerEntry {
     static int board_Mode = 0;
     static String Cell_icon = "+";
-    static String Marmot_icon = "✖︎";
     static String usr_level="Rookie";
+    static String Marmot_icon =  "✖︎";
 
     static int[] getcoordEntry(int height) {
         //Return a valid Player entry for game loop, whatever the entry is

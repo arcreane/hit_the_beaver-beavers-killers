@@ -1,3 +1,5 @@
+import ConsoleColors.ConsoleColors;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,6 +21,9 @@ public class GamePlay {
     static String usr_Speed = "";
     static String[] game_log = new String[10];
 
+    static final String ANSI_RESET = "";
+    static final String ANSI_RED = "\u001B[31m";
+
     /**
      * setMarmot updates a new random pos for the Marmot    *
      *
@@ -27,14 +32,13 @@ public class GamePlay {
      * @return return the updated board
      */
     public static String[][] setMarmot(int board_dim, String[][] board) {
-/**
- */
         //        System.out.println("dimension tableau "+ board_dim);
         board[lin][col] = getPlayerEntry.Cell_icon; // re_initialise the previous Marmot pos
         lin = (int) (Math.random() * (board_dim - 1) + 1);// set a random pos for the Marmot (same for next)
         col = (int) (Math.random() * (board_dim - 1) + 1);
 //        System.out.println(("lin/col :"+lin+"/"+col));
-        board[lin][col] = getPlayerEntry.Marmot_icon; //sets the icon of the Marmot at new pos
+        board[lin][col] = (ConsoleColors.RED + getPlayerEntry.Marmot_icon+
+                ConsoleColors.RESET); //sets the icon of the Marmot at new pos
         System.out.println("Round : " + myTurns);// display the current round to the gamer
         return board;
     }
@@ -150,6 +154,8 @@ public class GamePlay {
         }
     }
 }
+
+
 //TRASH (before game over msg
 //            str = AnswerOnTime.Coord_Idle(lapse);
 //            if (input_Done) System.out.println("vous avez entré : " + str);
