@@ -118,6 +118,7 @@ public class GamePlay {
         int score_position = 5;
         String gamer_name = "";
         lapse = boardSetting.timer;
+        myTurns=0;
         init_Log();
         if (!(player_board == null)) { // null is returned if the player wants to stop the game
             for (int i = 0; i < beaverTurns; i++) { // loop for 10 rounds
